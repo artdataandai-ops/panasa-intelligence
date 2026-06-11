@@ -1,0 +1,59 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, timeout } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { AgentResponse } from '../models/models';
+
+@Injectable({ providedIn: 'root' })
+export class LyzrAgentService {
+
+  constructor(private http: HttpClient) {}
+
+  private getHeaders(): HttpHeaders {
+    // No API key here on purpose — the backend proxy attaches it server-side.
+    return new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+  }
+
+  callAgent(agentId: string, message: string, sessionId?: string): Observable<AgentResponse> {
+    // user_id is injected by the backend proxy; the browser only sends these.
+    const body = {
+      agent_id: agentId,
+      message: message,
+      session_id: sessionId || `session-${Date.now()}`
+    };
+    return this.http.post<AgentResponse>(
+      environment.apiUrl, body,
+      { headers: this.getHeaders() }
+    ).pipe(
+      timeout(60000),
+      catchError(err => {
+        console.error('Lyzr API error:', err);
+        const msg = err.name === 'TimeoutError' ? 'The search is taking too long. Please try again.' : 'Something went wrong. Please try again.';
+        return throwError(() => new Error(msg));
+      })
+    );
+  }
+
+  // Call Manager Agent — routes automatically to correct specialist
+  callManager(message: string, sessionId?: string): Observable<AgentResponse> {
+    return this.callAgent(environment.agents['manager'], message, sessionId);
+  }
+
+  parseJSON<T>(response: AgentResponse): T | null {
+    try {
+      // Try direct parse first
+      return JSON.parse(response.response) as T;
+    } catch {
+      // Try to extract JSON from markdown code blocks
+      const match = response.response.match(/```(?:json)?\s*([\s\S]*?)```/);
+      if (match) {
+        try { return JSON.parse(match[1].trim()) as T; } catch { }
+      }
+      // Return raw response as summary if not JSON
+      return null;
+    }
+  }
+}

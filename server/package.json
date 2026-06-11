@@ -1,0 +1,20 @@
+{
+  "name": "panasa-intelligence-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend proxy that serves the Panasa Intelligence Angular app and keeps the Lyzr API key server-side.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0"
+  }
+}
