@@ -1,11 +1,12 @@
 # Panasa Intelligence — production stack
 #
-#   frontend (nginx) :8080  ──/panasa/api──►  backend (node) :3000
+#   frontend (nginx) :8080  ──/panasa-intelligence/api──►  backend (node) :3000
 #
-# Published at http(s)://<host>:4770/panasa/
-# TLS is expected to be terminated by an upstream proxy/load balancer.
-# If you need this container to serve HTTPS directly, mount certs into the
-# frontend service and add an `ssl` listener in nginx.conf.
+# A host nginx terminates TLS on :7777 and reverse-proxies to the frontend
+# (see nginx-host.conf), giving the public URL:
+#   https://ai.arttechgroup.com:7777/panasa-intelligence/
+# The frontend port is bound to 127.0.0.1 so the container is reachable only by
+# the host nginx, never directly from the internet.
 
 services:
   backend:
@@ -22,4 +23,4 @@ services:
     depends_on:
       - backend
     ports:
-      - "4770:8080"            # host 4770 (47xx app range) -> nginx serves /panasa/ here
+      - "127.0.0.1:4770:8080"  # loopback only; the host nginx (:7777, TLS) proxies here
