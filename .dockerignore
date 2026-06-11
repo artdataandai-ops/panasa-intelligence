@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.angular/
+.git/
+.gitignore
+# Backend has its own build context (./server); keep it out of the frontend image.
+server/
+# Deployment/orchestration files aren't needed inside the frontend build.
+docker-compose.yml
+deploy.sh
+*.md
+.vscode/
+.idea/
+npm-debug.log*

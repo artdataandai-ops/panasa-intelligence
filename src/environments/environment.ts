@@ -1,9 +1,11 @@
 export const environment = {
   production: false,
-  // Requests go to our own backend proxy (same origin in production; dev-proxied
-  // to the Node server during `ng serve` via proxy.conf.json). The Lyzr API key
-  // now lives ONLY on the server and is never shipped to the browser.
-  apiUrl: '/api/agent',
+  // Requests go to our own backend proxy. The path is RELATIVE (no leading slash)
+  // so it resolves against <base href>: in dev (base "/") it hits /api/agent and is
+  // proxied to the Node server via proxy.conf.json; in the prod container (base
+  // "/panasa/") it hits /panasa/api/agent, which nginx strips and forwards to the
+  // backend. The Lyzr API key lives ONLY on the server, never shipped to the browser.
+  apiUrl: 'api/agent',
   agents: {
     manager:    '6a1dc89af6b085eee307e2f9',
     monitor:    '6a1874f7da56d8978dfe6d0b',

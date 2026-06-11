@@ -1,0 +1,25 @@
+# Panasa Intelligence — production stack
+#
+#   frontend (nginx) :8080  ──/panasa/api──►  backend (node) :3000
+#
+# Published at http(s)://<host>:4770/panasa/
+# TLS is expected to be terminated by an upstream proxy/load balancer.
+# If you need this container to serve HTTPS directly, mount certs into the
+# frontend service and add an `ssl` listener in nginx.conf.
+
+services:
+  backend:
+    build: ./server
+    restart: unless-stopped
+    env_file:
+      - ./server/.env          # LYZR_API_KEY, LYZR_ALLOWED_AGENTS, ...
+    expose:
+      - "3000"                 # internal only; reached via nginx
+
+  frontend:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "4770:8080"            # host 4770 (47xx app range) -> nginx serves /panasa/ here
