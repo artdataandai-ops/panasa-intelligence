@@ -1,0 +1,26 @@
+# Panasa Intelligence — production stack
+#
+#   frontend (nginx) :8080  ──/panasa-intelligence/api──►  backend (node) :3000
+#
+# A host nginx terminates TLS on :7777 and reverse-proxies to the frontend
+# (see nginx-host.conf), giving the public URL:
+#   https://ai.arttechgroup.com:7777/panasa-intelligence/
+# The frontend port is bound to 127.0.0.1 so the container is reachable only by
+# the host nginx, never directly from the internet.
+
+services:
+  backend:
+    build: ./server
+    restart: unless-stopped
+    env_file:
+      - ./server/.env          # LYZR_API_KEY, LYZR_ALLOWED_AGENTS, ...
+    expose:
+      - "3000"                 # internal only; reached via nginx
+
+  frontend:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "127.0.0.1:4770:8080"  # loopback only; the host nginx (:7777, TLS) proxies here

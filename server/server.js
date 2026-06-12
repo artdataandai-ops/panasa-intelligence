@@ -30,9 +30,12 @@ if (!LYZR_API_KEY) {
 
 const app = express();
 
-// On a physical server you'll sit behind nginx terminating TLS. Trusting the
-// first proxy hop lets rate limiting see the real client IP via X-Forwarded-For.
-app.set('trust proxy', 1);
+// In production there are two proxy hops in front of this process:
+//   host nginx (TLS :7777)  ->  container nginx (:8080)  ->  this Node proxy
+// Trusting both lets rate limiting key off the real client IP (the left-most
+// X-Forwarded-For entry) instead of the nginx hop. The frontend container is
+// bound to 127.0.0.1, so the X-Forwarded-For chain can't be spoofed externally.
+app.set('trust proxy', 2);
 
 app.use(helmet());
 app.use(compression());

@@ -1,0 +1,8 @@
+node_modules/
+npm-debug.log*
+.git/
+.gitignore
+# Secrets are injected at runtime via docker-compose env_file, never baked in.
+.env
+.env.example
+README.md
