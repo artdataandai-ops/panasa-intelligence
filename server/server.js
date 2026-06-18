@@ -20,7 +20,7 @@ const ALLOWED_AGENTS = (process.env.LYZR_ALLOWED_AGENTS || '')
 
 // Where the built Angular app lives (output of `ng build`).
 const STATIC_DIR = process.env.STATIC_DIR
-  || path.join(__dirname, '..', 'dist', 'panasa-intelligence', 'browser');
+  || path.join(__dirname, '..', 'dist', 'art-intelligence', 'browser');
 
 if (!LYZR_API_KEY) {
   console.error('FATAL: LYZR_API_KEY is not set. Copy server/.env.example to '
@@ -114,7 +114,7 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Panasa Intelligence server listening on http://0.0.0.0:${PORT}`);
+  console.log(`Art Intelligence server listening on http://0.0.0.0:${PORT}`);
   console.log(`Serving static files from: ${STATIC_DIR}`);
   if (!ALLOWED_AGENTS.length) {
     console.warn('WARNING: LYZR_ALLOWED_AGENTS is empty — the proxy will forward '

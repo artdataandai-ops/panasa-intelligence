@@ -16,7 +16,7 @@ import { environment } from '../../../environments/environment';
           <input [(ngModel)]="entityName" placeholder="Entity name e.g. Alpha Capital Holdings Ltd" />
           <input [(ngModel)]="jurisdiction" placeholder="Jurisdiction e.g. Cayman Islands" />
         </div>
-        <input [(ngModel)]="documents" placeholder="Documents provided (comma separated) e.g. Certificate of Incorporation, Register of Directors" style="width:100%;margin-bottom:10px;box-sizing:border-box;" />
+        <input [(ngModel)]="documents" placeholder="Documents provided (comma separated) e.g. Certificate of Incorporation, Register of Directors" style="width:100%;margin-bottom:12px;box-sizing:border-box;" />
         <button (click)="assess()" [disabled]="loading || !entityName">{{ loading ? 'Assessing...' : 'Assess Case' }}</button>
       </div>
       <div class="quick-tests">
@@ -34,25 +34,49 @@ import { environment } from '../../../environments/environment';
     </div>
   `,
   styles: [`
-    .page { padding: 24px; max-width: 900px; }
+    .page { padding: 28px 32px; }
     .page-header { margin-bottom: 24px; }
-    h1 { font-size: 22px; color: #1a3a5c; margin: 0 0 4px; }
-    h2 { font-size: 15px; color: #1a3a5c; margin: 0 0 12px; }
-    .subtitle { color: #6b7280; font-size: 13px; margin: 0; }
-    .input-card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-    .form-row { display: flex; gap: 10px; margin-bottom: 10px; }
-    input { flex: 1; padding: 10px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 13px; }
-    button { background: #1a3a5c; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    h1 { font-size: 22px; color: var(--app-heading); margin: 0 0 4px; }
+    h2 { font-size: 15px; color: var(--app-heading); margin: 0 0 14px; }
+    .subtitle { color: var(--app-text-muted); font-size: 13px; margin: 0; }
+    .input-card {
+      background: var(--app-surface); border-radius: 10px; padding: 22px; margin-bottom: 16px;
+      border: 1px solid var(--app-border);
+    }
+    .form-row { display: flex; gap: 10px; margin-bottom: 12px; }
+    input {
+      flex: 1; padding: 11px 14px; border: 1px solid var(--app-input-border);
+      border-radius: 8px; font-size: 13px; background: var(--app-main-bg); color: var(--app-text);
+    }
+    button {
+      background: var(--yellow); color: #1a1a1a; border: none; padding: 11px 20px;
+      border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: background 0.2s;
+    }
+    button:hover { background: var(--yellow-dark); }
     button:disabled { opacity: 0.5; }
-    .quick-tests { background: white; border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
-    .btn-test { background: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; color: #374151; }
-    .loading { display: flex; align-items: center; gap: 10px; padding: 16px; color: #6b7280; }
-    .spinner { width: 18px; height: 18px; border: 3px solid #e5e7eb; border-top-color: #2e75b6; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    .quick-tests {
+      background: var(--app-surface); border-radius: 10px; padding: 22px; margin-bottom: 16px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      align-items: flex-start; border: 1px solid var(--app-border);
+    }
+    .btn-test {
+      background: var(--app-main-bg); border: 1px solid var(--app-btn-outline-border); padding: 9px 16px;
+      border-radius: 8px; cursor: pointer; font-size: 12px; color: var(--app-btn-outline-text); transition: all 0.2s;
+    }
+    .btn-test:hover { background: var(--app-btn-outline-hover-bg); border-color: var(--yellow); color: var(--yellow); }
+    .loading { display: flex; align-items: center; gap: 10px; padding: 16px; color: var(--app-text-muted); }
+    .spinner {
+      width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.08);
+      border-top-color: var(--yellow); border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .error-bar { background: #fef2f2; color: #dc2626; padding: 10px; border-radius: 6px; font-size: 13px; }
-    .response-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-    .response-label { font-size: 11px; color: #6b7280; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; }
-    .response-body { white-space: pre-wrap; font-family: Arial; font-size: 13px; color: #374151; line-height: 1.6; margin: 0; }
+    .error-bar { background: rgba(220,38,38,0.08); color: #f87171; padding: 12px; border-radius: 8px; font-size: 13px; }
+    .response-card {
+      background: var(--app-surface); border-radius: 10px; padding: 22px;
+      border: 1px solid var(--app-border);
+    }
+    .response-label { font-size: 11px; color: var(--app-text-muted); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .response-body { white-space: pre-wrap; font-family: 'Segoe UI', Arial; font-size: 13px; color: var(--app-text); line-height: 1.7; margin: 0; }
   `]
 })
 export class OnboardingComponent {

@@ -1,8 +1,8 @@
 {
-  "name": "panasa-intelligence-server",
+  "name": "art-intelligence-server",
   "version": "1.0.0",
   "private": true,
-  "description": "Backend proxy that serves the Panasa Intelligence Angular app and keeps the Lyzr API key server-side.",
+  "description": "Backend proxy that serves the Art Intelligence Angular app and keeps the Lyzr API key server-side.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

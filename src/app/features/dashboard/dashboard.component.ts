@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
       <div class="page-header">
         <div>
           <h1>Intelligence Dashboard</h1>
-          <p class="subtitle">Panasa Intelligence Platform | Powered by Lyzr AI</p>
+          <p class="subtitle">Art Intelligence Platform | Powered by Lyzr AI</p>
         </div>
         <button (click)="loadBriefing()" class="btn-primary" [disabled]="loading">
           {{ loading ? 'Loading...' : '↻ Morning Briefing' }}
@@ -96,56 +96,111 @@ import { environment } from '../../../environments/environment';
     </div>
   `,
   styles: [`
-    .page { padding: 24px; max-width: 1100px; }
-    .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
-    h1 { font-size: 24px; color: #1a3a5c; margin: 0 0 4px; }
-    .subtitle { color: #6b7280; font-size: 13px; margin: 0; }
-    .btn-primary { background: #1a3a5c; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }
-    .btn-primary:hover { background: #2e75b6; }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .page { padding: 28px 32px; }
+    .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    h1 { font-size: 24px; color: var(--app-heading); margin: 0 0 4px; }
+    .subtitle { color: var(--app-text-muted); font-size: 13px; margin: 0; }
+    .btn-primary {
+      background: var(--yellow); color: #1a1a1a; border: none; padding: 10px 22px;
+      border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--yellow-dark); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    .stats-bar { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-    .stat { background: white; border-radius: 8px; padding: 16px 24px; text-align: center; min-width: 100px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-    .stat-num { display: block; font-size: 28px; font-weight: 700; color: #1a3a5c; }
-    .stat-label { display: block; font-size: 12px; color: #6b7280; margin-top: 2px; }
+    .stats-bar { display: flex; gap: 14px; margin-bottom: 24px; }
+    .stat {
+      flex: 1; background: var(--app-surface); border-radius: 10px; padding: 20px 24px; text-align: center;
+      border: 1px solid var(--app-border);
+    }
+    .stat-num { display: block; font-size: 30px; font-weight: 700; color: var(--yellow); }
+    .stat-label { display: block; font-size: 11px; color: var(--app-text-muted); margin-top: 6px; letter-spacing: 0.5px; text-transform: uppercase; }
     .stat-danger .stat-num { color: #dc2626; }
     .stat-warn .stat-num { color: #ea580c; }
 
-    .ask-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-    .ask-section h2 { font-size: 15px; color: #1a3a5c; margin: 0 0 12px; }
+    .ask-section {
+      background: var(--app-surface); border-radius: 10px; padding: 22px;
+      margin-bottom: 20px; border: 1px solid var(--app-border);
+    }
+    .ask-section h2 { font-size: 15px; color: var(--app-heading); margin: 0 0 14px; }
     .ask-bar { display: flex; gap: 10px; }
-    .ask-bar input { flex: 1; padding: 10px 14px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 14px; outline: none; }
-    .ask-bar input:focus { border-color: #2e75b6; }
-    .ask-bar button { background: #2e75b6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; white-space: nowrap; }
+    .ask-bar input {
+      flex: 1; padding: 11px 14px; border: 1px solid var(--app-input-border);
+      border-radius: 8px; font-size: 14px; background: var(--app-main-bg); color: var(--app-text);
+    }
+    .ask-bar button {
+      background: var(--yellow); color: #1a1a1a; border: none; padding: 11px 22px;
+      border-radius: 8px; cursor: pointer; font-size: 14px; white-space: nowrap; font-weight: 600;
+      transition: background 0.2s;
+    }
+    .ask-bar button:hover { background: var(--yellow-dark); }
     .ask-bar button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .manager-response { margin-top: 14px; background: #f8fafc; border-radius: 6px; padding: 14px; border-left: 3px solid #2e75b6; }
-    .response-label { font-size: 11px; color: #6b7280; margin-bottom: 6px; font-weight: 600; text-transform: uppercase; }
-    .response-body { font-size: 13px; color: #374151; white-space: pre-wrap; line-height: 1.6; }
+    .manager-response {
+      margin-top: 14px; background: rgba(255,255,255,0.03); border-radius: 8px;
+      padding: 16px; border-left: 3px solid var(--app-border);
+    }
+    .response-label { font-size: 11px; color: var(--app-text-muted); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .response-body { font-size: 13px; color: var(--app-text); white-space: pre-wrap; line-height: 1.7; }
 
-    .quick-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-    .quick-section h2 { font-size: 15px; color: #1a3a5c; margin: 0 0 12px; }
+    .quick-section {
+      background: var(--app-surface); border-radius: 10px; padding: 22px;
+      margin-bottom: 20px; border: 1px solid var(--app-border);
+    }
+    .quick-section h2 { font-size: 15px; color: var(--app-heading); margin: 0 0 14px; }
     .bank-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
-    .btn-bank { background: white; border: 1px solid #e5e7eb; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-size: 13px; color: #1a3a5c; font-weight: 500; transition: all 0.2s; }
-    .btn-bank:hover { background: #ebf3fa; border-color: #2e75b6; }
+    .btn-bank {
+      background: var(--app-main-bg); border: 1px solid var(--app-btn-outline-border); padding: 9px 18px;
+      border-radius: 8px; cursor: pointer; font-size: 13px; color: var(--app-btn-outline-text);
+      font-weight: 500; transition: all 0.2s;
+    }
+    .btn-bank:hover { background: var(--app-btn-outline-hover-bg); border-color: var(--yellow); color: var(--yellow); }
     .btn-bank:disabled { opacity: 0.6; cursor: not-allowed; }
-    .btn-bank-loading { background: #ebf3fa !important; border-color: #2e75b6 !important; color: #2e75b6 !important; display: flex; align-items: center; gap: 6px; }
-    .btn-spinner { width: 10px; height: 10px; border: 2px solid #c7dff0; border-top-color: #2e75b6; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; flex-shrink: 0; }
+    .btn-bank-loading {
+      background: var(--app-btn-outline-hover-bg) !important; border-color: var(--yellow) !important;
+      color: var(--yellow) !important; display: flex; align-items: center; gap: 6px;
+    }
+    .btn-spinner {
+      width: 10px; height: 10px; border: 2px solid rgba(245,192,16,0.3);
+      border-top-color: var(--yellow); border-radius: 50%; animation: spin 0.7s linear infinite;
+      display: inline-block; flex-shrink: 0;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .bank-progress { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: #f0f7ff; border-radius: 6px; margin-bottom: 12px; font-size: 13px; color: #2e75b6; overflow: hidden; position: relative; }
-    .bank-progress-bar { position: absolute; left: 0; top: 0; height: 3px; background: linear-gradient(90deg, #2e75b6, #60a5fa, #2e75b6); background-size: 200% 100%; animation: progress 1.5s ease-in-out infinite; width: 100%; }
+
+    .bank-progress {
+      display: flex; align-items: center; gap: 12px; padding: 10px 16px;
+      background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 12px;
+      font-size: 13px; color: var(--app-text-muted); overflow: hidden; position: relative;
+    }
+    .bank-progress-bar {
+      position: absolute; left: 0; top: 0; height: 3px;
+      background: linear-gradient(90deg, var(--yellow), var(--yellow-dark), var(--yellow));
+      background-size: 200% 100%; animation: progress 1.5s ease-in-out infinite; width: 100%;
+    }
     @keyframes progress { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-    .error-bar { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
-    .error-bar button { background: none; border: none; cursor: pointer; color: #dc2626; font-size: 16px; }
-    .loading-bar { display: flex; align-items: center; gap: 12px; padding: 20px; color: #6b7280; font-size: 14px; }
-    .spinner { width: 20px; height: 20px; border: 3px solid #e5e7eb; border-top-color: #2e75b6; border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-bar {
+      background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.25); color: #f87171;
+      padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; display: flex;
+      justify-content: space-between; align-items: center; font-size: 13px;
+    }
+    .error-bar button { background: none; border: none; cursor: pointer; color: #f87171; font-size: 16px; }
 
-    .alerts-section { }
+    .loading-bar { display: flex; align-items: center; gap: 12px; padding: 20px; color: var(--app-text-muted); font-size: 14px; }
+    .spinner {
+      width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.08);
+      border-top-color: var(--yellow); border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+
     .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-    .section-header h2 { font-size: 15px; color: #1a3a5c; margin: 0; }
-    .badge-count { background: #e5e7eb; color: #374151; font-size: 12px; padding: 2px 8px; border-radius: 10px; }
-    .empty { background: white; border-radius: 8px; padding: 32px; text-align: center; color: #9ca3af; font-size: 14px; }
+    .section-header h2 { font-size: 15px; color: var(--app-heading); margin: 0; }
+    .badge-count {
+      background: var(--app-main-bg); color: var(--app-text-muted); font-size: 12px;
+      padding: 2px 10px; border-radius: 10px; font-weight: 600;
+    }
+    .empty {
+      background: var(--app-surface); border-radius: 10px; padding: 40px; text-align: center;
+      color: var(--app-text-muted); font-size: 13px; border: 1px solid var(--app-border);
+    }
   `]
 })
 export class DashboardComponent implements OnInit {

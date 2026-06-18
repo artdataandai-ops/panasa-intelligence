@@ -1,10 +1,10 @@
-# Panasa Intelligence Platform — Angular App
+# Art Intelligence Platform — Angular App
 
 ## Setup in VS Code (5 minutes)
 
 ### Step 1 — Open in VS Code
 ```
-File → Open Folder → select panasa_intelligence folder
+File → Open Folder → select art-intelligence folder
 ```
 
 ### Step 2 — Install dependencies
