@@ -1,7 +1,91 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Arial, sans-serif; background: #f0f4f8; color: #1f2937; }
-h1, h2, h3 { font-weight: 600; }
-a { color: #2563eb; }
-button { font-family: Arial, sans-serif; }
-input, textarea { font-family: Arial, sans-serif; outline: none; }
-input:focus, textarea:focus { border-color: #2e75b6 !important; box-shadow: 0 0 0 2px rgba(46,117,182,0.15); }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --yellow: #F5C010; --yellow-dark: #C9960A; --yellow-light: #FFF8DC;
+  --grey: #6B6B6B; --grey-light: #F7F7F5; --grey-border: #E8E8E4;
+  --dark: #1A1A1A; --white: #FFFFFF;
+  --text-primary: #1A1A1A; --text-secondary: #6B6B6B;
+  /* Dark theme (default) */
+  --app-bg: #0f1117; --app-surface: #1a1d27;
+  --app-main-bg: #13151f; --app-border: rgba(245,192,16,0.12);
+  --app-text: #d4d4ce; --app-text-muted: #7a7a7a;
+  --app-bubble-bot: #1a1d2a; --app-input-bg: #13151f;
+  --app-input-border: rgba(245,192,16,0.18);
+  --app-modal-bg: #1a1d27; --app-modal-surface: #13151f;
+  --app-modal-border: rgba(245,192,16,0.12);
+  --app-form-bg: #13151f; --app-form-border: rgba(245,192,16,0.18);
+  --app-form-text: #d4d4ce;
+  --app-heading: #e8e8e4;
+  --app-btn-outline-border: rgba(245,192,16,0.3);
+  --app-btn-outline-text: var(--yellow);
+  --app-btn-outline-hover-bg: rgba(245,192,16,0.08);
+  --sidebar-bg: linear-gradient(180deg, #0f1117 0%, #151822 60%, #0f1117 100%);
+  --sidebar-border: rgba(245,192,16,0.12);
+  --sidebar-text: #ffffff;
+  --sidebar-muted: rgba(255,255,255,0.3);
+  --sidebar-link: rgba(255,255,255,0.5);
+  --sidebar-hover-bg: rgba(245,192,16,0.08);
+  --sidebar-hover-text: rgba(255,255,255,0.9);
+  --sidebar-active-bg: rgba(245,192,16,0.12);
+  --sidebar-constellation-opacity: 0.35;
+}
+[data-theme="dark"] {
+  --app-bg: #0f1117; --app-surface: #1a1d27;
+  --app-main-bg: #13151f; --app-border: rgba(245,192,16,0.12);
+  --app-text: #d4d4ce; --app-text-muted: #7a7a7a;
+  --app-bubble-bot: #1a1d2a; --app-input-bg: #13151f;
+  --app-input-border: rgba(245,192,16,0.18);
+  --app-modal-bg: #1a1d27; --app-modal-surface: #13151f;
+  --app-modal-border: rgba(245,192,16,0.12);
+  --app-form-bg: #13151f; --app-form-border: rgba(245,192,16,0.18);
+  --app-form-text: #d4d4ce;
+  --app-heading: #e8e8e4;
+  --app-btn-outline-border: rgba(245,192,16,0.3);
+  --app-btn-outline-text: var(--yellow);
+  --app-btn-outline-hover-bg: rgba(245,192,16,0.08);
+  --sidebar-bg: linear-gradient(180deg, #0f1117 0%, #151822 60%, #0f1117 100%);
+  --sidebar-border: rgba(245,192,16,0.12);
+  --sidebar-text: #ffffff;
+  --sidebar-muted: rgba(255,255,255,0.3);
+  --sidebar-link: rgba(255,255,255,0.5);
+  --sidebar-hover-bg: rgba(245,192,16,0.08);
+  --sidebar-hover-text: rgba(255,255,255,0.9);
+  --sidebar-active-bg: rgba(245,192,16,0.12);
+  --sidebar-constellation-opacity: 0.35;
+}
+[data-theme="light"] {
+  --app-bg: #f4f4f1; --app-surface: #ffffff;
+  --app-main-bg: #f9f9f7; --app-border: rgba(0,0,0,0.1);
+  --app-text: #1a1a1a; --app-text-muted: #6b6b6b;
+  --app-bubble-bot: #f0f0ec; --app-input-bg: #f4f4f1;
+  --app-input-border: rgba(0,0,0,0.15);
+  --app-modal-bg: #ffffff; --app-modal-surface: #f4f4f1;
+  --app-modal-border: rgba(0,0,0,0.1);
+  --app-form-bg: #f4f4f1; --app-form-border: rgba(0,0,0,0.15);
+  --app-form-text: #1a1a1a;
+  --app-heading: #1a1a1a;
+  --app-btn-outline-border: rgba(0,0,0,0.2);
+  --app-btn-outline-text: #1a1a1a;
+  --app-btn-outline-hover-bg: rgba(0,0,0,0.04);
+  --sidebar-bg: #ffffff;
+  --sidebar-border: rgba(0,0,0,0.1);
+  --sidebar-text: #1a1a1a;
+  --sidebar-muted: rgba(0,0,0,0.35);
+  --sidebar-link: rgba(0,0,0,0.5);
+  --sidebar-hover-bg: rgba(245,192,16,0.1);
+  --sidebar-hover-text: #1a1a1a;
+  --sidebar-active-bg: rgba(245,192,16,0.15);
+  --sidebar-constellation-opacity: 0;
+}
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--app-bg); color: var(--app-text); }
+h1, h2, h3 { font-weight: 600; color: var(--app-heading); }
+a { color: var(--yellow); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { font-family: 'Segoe UI', Arial, sans-serif; }
+input, textarea { font-family: 'Segoe UI', Arial, sans-serif; outline: none; }
+input:focus, textarea:focus { border-color: var(--yellow) !important; box-shadow: 0 0 0 2px rgba(245,192,16,0.15); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(128,128,128,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(128,128,128,0.5); }

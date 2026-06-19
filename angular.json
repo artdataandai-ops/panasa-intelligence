@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "panasa-intelligence": {
+    "art-intelligence": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/panasa-intelligence",
+            "outputPath": "dist/art-intelligence",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -41,8 +41,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": { "buildTarget": "panasa-intelligence:build:production" },
-            "development": { "buildTarget": "panasa-intelligence:build:development" }
+            "production": { "buildTarget": "art-intelligence:build:production" },
+            "development": { "buildTarget": "art-intelligence:build:development" }
           },
           "defaultConfiguration": "development",
           "options": {

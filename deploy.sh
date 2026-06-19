@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Panasa Intelligence production deploy script.
+# Art Intelligence production deploy script.
 #
 #   frontend (nginx) :8080  ──/panasa/api──►  backend (node) :3000
 #   Public entrypoint: http(s)://<host>:4770/panasa/
@@ -54,7 +54,7 @@ $COMPOSE up -d
 echo "▶ Waiting for the app to come up..."
 ok=0
 for i in $(seq 1 30); do
-  code="$(curl -s -o /dev/null -w '%{http_code}' http://localhost:4770/panasa-intelligence/healthz || true)"
+  code="$(curl -s -o /dev/null -w '%{http_code}' http://localhost:4770/art-intelligence/healthz || true)"
   if [ "$code" = "200" ]; then ok=1; break; fi
   sleep 2
 done
@@ -64,8 +64,8 @@ $COMPOSE ps
 echo
 if [ "$ok" -eq 1 ]; then
   echo "✅ Deploy complete."
-  echo "   Direct (container):  http://localhost:4770/panasa-intelligence/  (health: 200)"
-  echo "   Public (via TLS):    https://ai.arttechgroup.com:7777/panasa-intelligence/"
+  echo "   Direct (container):  http://localhost:4770/art-intelligence/  (health: 200)"
+  echo "   Public (via TLS):    https://ai.arttechgroup.com:7777/art-intelligence/"
 else
   echo "⚠️  Stack started but health check did not return 200 in time."
   echo "   Check logs:  $COMPOSE logs -f"
